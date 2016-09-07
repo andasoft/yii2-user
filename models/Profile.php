@@ -168,7 +168,7 @@ class Profile extends \yii\db\ActiveRecord
         $data->cover = $this->verifyImage($userUploadPath.'/covers/'.$data->cover, 'default-cover.jpg');
         $data->bio = $this->verifyValue($data->bio);
         $data->data = $this->verifyValue($data->data);
-        $data->roles = (count($data->roles) > 0) ? $data->roles : [(object)['name' => null]];
+        $data->roles = (count($data->roles) > 0) ? $data->roles : [(object)['name' => null]],
 
         return $data;
     }
