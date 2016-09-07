@@ -146,7 +146,8 @@ class Profile extends \yii\db\ActiveRecord
             'cover' => $this->cover_cropped,
             'bio' => $this->bio,
             'data' => $this->data,
-            'roles' => Yii::$app->authManager->getRoles($this->user_id),
+            //'roles' => Yii::$app->authManager->getRoles($this->user_id),
+            'roles' => (Yii::$app->authManager->getRoles($this->user_id)) ? Yii::$app->authManager->getRoles($this->user_id) : [];
         ];
 
         return $result;
