@@ -35,7 +35,8 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+    	$model = Yii::$app->user->identity->profile;
+        return $this->render('index', ['model' => $model]);
     }
 
     public function errorColor($code)
