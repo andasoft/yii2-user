@@ -105,6 +105,8 @@ stdClass Object
     [data] => Not set
     [roles] => Array
         (
+            [root] => ระดับสูงสุด
+            [employee] => Employee
         )
 
 )
@@ -135,6 +137,7 @@ stdClass Object
     [data] => Not set
     [roles] => Array
         (
+            [customer] => พระเจ้า
         )
 
 )
