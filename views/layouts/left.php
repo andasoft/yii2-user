@@ -25,6 +25,9 @@
             </div>
         </form>-->
         <!-- /.search form -->
+        <?php
+        $isAdmin = (Yii::$app->session->get('user.idbeforeswitch') === null) ? false : true;
+        ?>
 
         <?= dmstr\widgets\Menu::widget(
             [
@@ -43,6 +46,7 @@
                         ],
                     ],
                     ['label' => 'Admin', 'icon' => 'fa fa-users', 'url' => ['admin/index']],
+                    ['label' => 'Log off ['.Yii::$app->user->identity->username.']', 'icon' => 'fa fa-power-off', 'url' => ['admin/log-off'], 'visible' => $isAdmin, 'options'  => ['class' => 'bg-red'],],
                     ['label' => 'RBAC', 'icon' => 'fa fa-filter', 'url' => $this->context->module->rbacUrl],
                 ],
             ]

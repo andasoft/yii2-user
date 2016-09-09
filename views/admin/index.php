@@ -44,7 +44,25 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=>'{log-on} {view} {update} {delete}',
+                'buttons'=>[
+                    'log-on' => function($url,$model,$key){
+                        $originalUserId = Yii::$app->session->get('user.idbeforeswitch');
+                        $currentUserId = Yii::$app->user->id;
+                        if($originalUserId !== $model->id and $currentUserId !== $model->id){
+                            return Html::a('<span class="glyphicon glyphicon-log-in"></span> &nbsp;',$url,[
+                                 'title'=>'Switch user',
+                                 'aria-label'=> 'View',
+                                 'data-pjax'=>'0',
+                                 'data-confirm'=> 'Are you sure you want to switch user?'
+                            ]);
+                        }
+                    }
+                ]
+            ],
         ],
     ]); ?>
     </div>

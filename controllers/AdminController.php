@@ -30,6 +30,11 @@ class AdminController extends Controller
                 ],
                 'rules' => [
                     [
+                        'actions' => ['log-off'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         //'actions' => ['index'],
                         'allow' => true,
                         'roles' => $this->module->admins,
@@ -131,6 +136,32 @@ class AdminController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionLogOn($id)
+    {
+        $initialId = Yii::$app->user->id;
+        if ($id == $initialId) {
+            //Same user!
+        } else {
+            $user = User::findOne($id);
+            $duration = 0;
+            Yii::$app->user->switchIdentity($user, $duration); 
+            Yii::$app->session->set('user.idbeforeswitch',$initialId); 
+            return $this->redirect(['default/index']);
+        }
+    }
+
+    public function actionLogOff()
+    {
+        $originalId = Yii::$app->session->get('user.idbeforeswitch');
+        if ($originalId) {
+            $user = User::findOne($originalId);
+            $duration = 0;
+            Yii::$app->user->switchIdentity($user, $duration);
+            Yii::$app->session->remove('user.idbeforeswitch');
+        }
+        return $this->redirect(['admin/index']);
     }
 
     /**
