@@ -31,18 +31,11 @@ Config
         ...
         'user' => [ //module id = 'user' only
             'class' => 'anda\user\Module',
-            'loginBy' => 'db', //db or ldap (ldap not work)
-            'userUploadDir' => '@uploads', //Base uploads Directory
-            'userUploadUrl' => '/uploads', //Url of userUploadDir
+            'loginBy' => 'db', //db or ldap
+            'userUploadDir' => '@uploads', //real path
+            'userUploadUrl' => '/uploads', //url path
             'userUploadPath' => 'user', //path after upload directory
-            'admins' => ['admin', 'root'] //list of username for manage users
-        ],
-        ...
-    ],
-    'components' => [
-        ...
-        'user' => [
-            'identityClass' => 'anda\user\models\User',
+            'admins' => ['admin', 'root'] //list username for manage users
         ],
         ...
     ],
@@ -105,8 +98,6 @@ stdClass Object
     [data] => Not set
     [roles] => Array
         (
-            [root] => ระดับสูงสุด
-            [employee] => Employee
         )
 
 )
@@ -137,7 +128,6 @@ stdClass Object
     [data] => Not set
     [roles] => Array
         (
-            [customer] => พระเจ้า
         )
 
 )

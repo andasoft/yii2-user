@@ -18,7 +18,6 @@ use karpoff\icrop\CropImageUploadBehavior;
  * @property string $cover_cropped
  * @property string $cover
  * @property string $bio
- * @property string $data
  */
 class Profile extends \yii\db\ActiveRecord
 {
@@ -49,7 +48,7 @@ class Profile extends \yii\db\ActiveRecord
             'url' => $this->module->userUploadUrl.'/'.$this->module->userUploadPath,
         ];
         return [
-            [
+            'avatar' => [
                 'class' => CropImageUploadBehavior::className(),
                 'attribute' => 'avatar',
                 'scenarios' => ['insert', 'update'],
@@ -59,7 +58,7 @@ class Profile extends \yii\db\ActiveRecord
                 'crop_field' => 'avatar_offset',
                 'cropped_field' => 'avatar_cropped',
             ],
-            [
+            'cover' => [
                 'class' => CropImageUploadBehavior::className(),
                 'attribute' => 'cover',
                 'scenarios' => ['insert', 'update'],
@@ -82,7 +81,7 @@ class Profile extends \yii\db\ActiveRecord
         return [
             [['user_id',], 'required'],
             [['user_id'], 'integer'],
-            [['bio', 'data'], 'string'],
+            [['bio'], 'string'],
             [['firstname', 'lastname', 'avatar_offset', 'avatar_cropped', 'cover_offset', 'cover_cropped'], 'string', 'max' => 255],
             [['avatar', 'cover'], 'file', 'extensions' => 'jpg, jpeg, gif, png', 'on' => ['insert', 'update']],
         ];
@@ -97,7 +96,6 @@ class Profile extends \yii\db\ActiveRecord
             'avatar' => 'รูปประจำตัว',
             'cover' => 'รูปหน้าปก',
             'bio' => 'ประวัติ',
-            'data' => 'ข้อมูลอื่นๆ',
         ];
     }
 
@@ -145,7 +143,6 @@ class Profile extends \yii\db\ActiveRecord
             'avatar' => $this->avatar_cropped,
             'cover' => $this->cover_cropped,
             'bio' => $this->bio,
-            'data' => $this->data,
             'roles' => Yii::$app->authManager->getRolesByUser($this->user_id),
         ];
 
@@ -166,7 +163,6 @@ class Profile extends \yii\db\ActiveRecord
         $data->avatar = $this->verifyImage($userUploadPath.'/avatars/'.$data->avatar, 'default-avatar.jpg');
         $data->cover = $this->verifyImage($userUploadPath.'/covers/'.$data->cover, 'default-cover.jpg');
         $data->bio = $this->verifyValue($data->bio);
-        $data->data = $this->verifyValue($data->data);
         $roles = [];
         foreach ($data->roles as $key => $role) {
             $roles[$key] = ucfirst($role->description);

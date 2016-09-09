@@ -24,7 +24,6 @@ class m160425_081413_create_user_profile_table extends Migration
             'cover_cropped' => $this->string()->notNull(),
             'cover' => $this->string()->notNull(),
             'bio' => $this->string(),
-            'data' => $this->text(),
         ], $tableOptions);
     }
 

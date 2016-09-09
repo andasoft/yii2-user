@@ -18,23 +18,6 @@ class SettingsController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        $behaviors = parent::behaviors();
-
-        $behaviors['ContentNegotiator'] = [
-            'class' => \yii\filters\ContentNegotiator::className(),
-            'only' => [
-                'cover',
-                'avatar',
-            ],
-            'formats' => [
-                'application/json' => \yii\web\Response::FORMAT_JSON,
-            ],
-        ];
-
-        return $behaviors;
-    }
 
     public function actionIndex()
     {

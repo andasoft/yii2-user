@@ -44,12 +44,9 @@ class LoginForm extends Model
             $user = $this->getUser();
             if($this->module->loginBy === 'ldap'){
               $ldap = new \anda\user\components\Ldap();
-              /*$ldap->server = ['dc2.psu.ac.th','dc7.psu.ac.th','dc1.psu.ac.th'];
-              $ldap->basedn = 'dc=psu,dc=ac,dc=th';
-              $ldap->domain = 'psu.ac.th';*/
-              $ldap->server = $this->server;
-              $ldap->basedn = $this->basedn;
-              $ldap->domain = $this->domain;
+              $ldap->server = $this->module->ldapConfig['server'];
+              $ldap->basedn = $this->module->ldapConfig['basedn'];
+              $ldap->domain = $this->module->ldapConfig['domain'];
               $ldap->username = $this->username;
               $ldap->password = $this->password;
               $authen = $ldap->Authenticate();

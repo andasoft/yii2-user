@@ -19,7 +19,7 @@ class ProfileSearch extends Profile
     {
         return [
             [['user_id'], 'integer'],
-            [['firstname', 'lastname', 'avatar', 'cover', 'bio', 'data'], 'safe'],
+            [['firstname', 'lastname', 'avatar', 'cover', 'bio'], 'safe'],
         ];
     }
 
@@ -66,8 +66,7 @@ class ProfileSearch extends Profile
             ->andFilterWhere(['like', 'lastname', $this->lastname])
             ->andFilterWhere(['like', 'avatar', $this->avatar])
             ->andFilterWhere(['like', 'cover', $this->cover])
-            ->andFilterWhere(['like', 'bio', $this->bio])
-            ->andFilterWhere(['like', 'data', $this->data]);
+            ->andFilterWhere(['like', 'bio', $this->bio]);
 
         return $dataProvider;
     }
