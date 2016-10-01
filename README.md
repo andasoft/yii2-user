@@ -39,11 +39,24 @@ Config
         ],
         ...
     ],
+    'components' => [
+        ...
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ],
+        'user' => [
+            'identityClass' => 'anda\user\models\User',
+            ...
+        ],
+        ...
+    ],
 ```
 
 Migration table user and profile
 ```html
 ./yii migrate --migrationPath=@anda/user/migrations/
+
+./yii migrate --migrationPath=@yii/rbac/migrations/
 ```
 
 # List of available actions
