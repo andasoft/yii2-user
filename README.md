@@ -46,6 +46,7 @@ Config
         ],
         'user' => [
             'identityClass' => 'anda\user\models\User',
+            'loginUrl' => ['/user/auth/login'],
             ...
         ],
         ...
@@ -55,7 +56,9 @@ Config
 Migration table user and profile
 ```html
 ./yii migrate --migrationPath=@anda/user/migrations/
-
+```
+And
+```html
 ./yii migrate --migrationPath=@yii/rbac/migrations/
 ```
 
