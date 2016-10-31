@@ -3,8 +3,8 @@
 namespace anda\user\models;
 
 use Yii;
-use karpoff\icrop\CropImageUploadBehavior;
-
+//use karpoff\icrop\CropImageUploadBehavior;
+use anda\core\widgets\cropimageupload\CropImageUploadBehavior;
 /**
  * This is the model class for table "user_profile".
  *
@@ -40,9 +40,9 @@ class Profile extends \yii\db\ActiveRecord
      */
     function behaviors()
     {
+        //model Profile
         if($this->module === null)
             $this->module = Yii::$app->getModule('user');
-            //$this->module = Yii::$app->controller->module;
         $userUploads = [
             'path' => $this->module->userUploadDir.'/'.$this->module->userUploadPath,
             'url' => $this->module->userUploadUrl.'/'.$this->module->userUploadPath,
@@ -52,9 +52,10 @@ class Profile extends \yii\db\ActiveRecord
                 'class' => CropImageUploadBehavior::className(),
                 'attribute' => 'avatar',
                 'scenarios' => ['insert', 'update'],
-                'path' => $userUploads['path'].'/avatars',
-                'url' => $userUploads['url'].'/avatars',
+                'path' => $userUploads['path'].'/avatars/{user_id}',
+                'url' => $userUploads['url'].'/avatars/{user_id}',
                 'ratio' => 1,
+                'resize' => [200],
                 'crop_field' => 'avatar_offset',
                 'cropped_field' => 'avatar_cropped',
             ],
@@ -62,9 +63,10 @@ class Profile extends \yii\db\ActiveRecord
                 'class' => CropImageUploadBehavior::className(),
                 'attribute' => 'cover',
                 'scenarios' => ['insert', 'update'],
-                'path' => $userUploads['path'].'/covers',
-                'url' => $userUploads['url'].'/covers',
+                'path' => $userUploads['path'].'/covers/{user_id}',
+                'url' => $userUploads['url'].'/covers/{user_id}',
                 'ratio' => 5,
+                'resize' => [1024],
                 'crop_field' => 'cover_offset',
                 'cropped_field' => 'cover_cropped',
             ],
@@ -160,8 +162,8 @@ class Profile extends \yii\db\ActiveRecord
         $data->firstname = $this->verifyValue($data->firstname);
         $data->lastname = $this->verifyValue($data->lastname);
         $data->fullname = $this->verifyValue($data->fullname);
-        $data->avatar = $this->verifyImage($userUploadPath.'/avatars/'.$data->avatar, 'default-avatar.jpg');
-        $data->cover = $this->verifyImage($userUploadPath.'/covers/'.$data->cover, 'default-cover.jpg');
+        $data->avatar = $this->verifyImage($userUploadPath.'/avatars/'.$data->id.'/'.$data->avatar, 'default-avatar.jpg');
+        $data->cover = $this->verifyImage($userUploadPath.'/covers/'.$data->id.'/'.$data->cover, 'default-cover.jpg');
         $data->bio = $this->verifyValue($data->bio);
         $roles = [];
         foreach ($data->roles as $key => $role) {

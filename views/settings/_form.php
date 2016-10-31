@@ -3,13 +3,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
-use karpoff\icrop\CropImageUpload;
+use anda\core\widgets\cropimageupload\CropImageUpload;
 
 /* @var $this yii\web\View */
 /* @var $model anda\user\models\Profile */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
 <div class="profile-form">
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <div class="box box-widget widget-user">
