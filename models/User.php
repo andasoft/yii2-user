@@ -239,6 +239,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if($insert){
             $profile = new Profile();
+            $profile->scenario = 'signup';
             $profile->user_id = $this->id;
 
             $profile->load(Yii::$app->request->post());

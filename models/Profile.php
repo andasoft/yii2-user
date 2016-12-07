@@ -85,7 +85,8 @@ class Profile extends \yii\db\ActiveRecord
             [['user_id'], 'integer'],
             [['bio'], 'string'],
             [['firstname', 'lastname', 'avatar_offset', 'avatar_cropped', 'cover_offset', 'cover_cropped'], 'string', 'max' => 255],
-            [['avatar', 'cover'], 'file', 'extensions' => 'jpg, jpeg, gif, png', 'on' => ['insert', 'update']],
+            [['avatar', 'cover'], 'file', 'extensions' => 'jpg, jpeg, gif, png', 'on' => ['update']],
+            [['avatar_offset', 'avatar_cropped', 'avatar', 'cover_offset', 'cover_cropped', 'cover'], 'default', 'value' => '', 'on' => ['signup']],
         ];
     }
 
