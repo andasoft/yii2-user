@@ -113,10 +113,14 @@ class AdminController extends Controller
         $user = $this->findModel($id);
         $profile = $user->profile;
 
-        if ($user->load(Yii::$app->request->post()) && $user->save()) {
-            $profile->load(Yii::$app->request->post());
-            $profile->save();
-            return $this->redirect(['view', 'id' => $user->id]);
+        if ($user->load(Yii::$app->request->post())){
+            $user->setPassword(Yii::$app->request->post('User')['newPassword']);
+            $user->generateAuthKey();
+            if($user->save()) {
+                $profile->load(Yii::$app->request->post());
+                $profile->save();
+                return $this->redirect(['view', 'id' => $user->id]);
+            }
         } else {
             return $this->render('update', [
                 'user' => $user,
@@ -124,6 +128,8 @@ class AdminController extends Controller
             ]);
         }
     }
+    
+    
 
     /**
      * Deletes an existing User model.
