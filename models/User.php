@@ -84,6 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['newPassword', 'newPasswordConfirm'], 'string', 'min'=>3,],
             [['newPassword', 'newPasswordConfirm'], 'filter', 'filter'=>'trim',],
             ['newPasswordConfirm', 'compare', 'compareAttribute'=>'newPassword', 'message'=>"Passwords don't match"],
+            [['username', 'email'], 'unique'],
         ];
     }
 
